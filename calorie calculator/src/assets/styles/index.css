@@ -1,0 +1,228 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+  background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 70px;
+  }
+  
+  .header__logo .header__img {
+    margin-right: 5px;
+    height: 180px;
+  }
+  
+  .header__logo .header__title {
+    color: #333;
+    margin-bottom: 10px;
+    display: inline-block;
+    font-size: 50px;
+    max-width: min-content;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content.hide {
+    display: none;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+  
+  .content__input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #74a08e;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  .content__error {
+    border: 1px solid rgb(243, 132, 132);
+  }
+
+  .button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #74a08e;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  hr {
+    margin: 40px;
+  }
+  
+  .content__input::placeholder {
+    color: #999;
+  }
+
+  .content__error::placeholder {
+    color: rgb(243, 132, 132);
+  }
+
+  .sort-kcal {
+    cursor: pointer;
+  }
+
+  .sort-kcal:hover {
+    text-decoration: underline;
+  }
+  
+  h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .first-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin: 20px 0;
+  }
+  
+  .check-all {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .check-all__checkbox {
+    margin-right: 10px;
+  }
+  
+  .content__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .content__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    justify-content: space-between;
+    border-bottom: 1px solid #74a08e;
+    padding-bottom: 5px;
+  }
+  
+  .content__checkbox {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    position: relative;
+  }
+
+  .daily-amount {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .input-kcal {
+    width: auto;
+    padding: 0px;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .input-kcal:hover {
+    text-decoration: underline;
+  }
+
+  .kcal__set {
+    cursor: pointer;
+  }
+
+  .kcal__set:hover {
+    text-decoration: underline;
+  }
+
+  .error, .error>input {
+    color: rgb(243, 132, 132);
+  }
+
+  .daily-amount img {
+    position: absolute;
+    width: 20px;
+    cursor: pointer;
+    top: 50%;
+  }
+
+  .content__checkbox span {
+    padding-left: 25px;
+  }
+  
+  .content__checkbox input {
+    margin-right: 5px;
+  }
+  
+  .content__text {
+    flex-grow: 1;
+  }
+  
+  .content__kcal {
+    font-weight: bold;
+  }
+  
+  .content__kcal_per-day {
+    font-weight: bold;
+  }
+
+  .content__checkbox input {
+    display: none;
+  }
+  
+  .content__checkbox span::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+  }
+  
+  .content__checkbox input:checked + span::before {
+    background-image: url(../img/tick.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .content__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

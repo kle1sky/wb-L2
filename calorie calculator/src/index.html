@@ -3,14 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./assets/styles/index.css" />
     <title>Calorie Calculator</title>
   </head>
   <body>
     <div class="container">
       <div class="header">
-        <img src="./assets/img/logo.png" alt="logo" class="header__logo" />
+
+        <div class="header__logo">
+          <img src="./assets/img/logo.png" alt="logo" class="header__img" />
         <h1 class="header__title">Calorie Calculator</h1>
+        </div>
+
+        <h2>Добавить продукт</h2>
+
         <input
           type="text"
           class="content__input"
@@ -18,11 +24,17 @@
           id="product"
         />
         <input
-          type="number"
+          type="text"
+          oninput="this.value = this.value.replace(/\D/g, '')"
           class="content__input"
           placeholder="Введите количество калорий"
           id="calorie"
         />
+
+        <button class="button button-add">Добавить</button>
+
+        <hr>
+
       </div>
 
       <div class="content">
@@ -31,27 +43,32 @@
           <input type="text" class="content__input" id="filter" />
         </div>
 
+        <hr>
+
+        <label class="content__checkbox">
+          <input type="checkbox" class="check-all content__input">
+          <span>Отметить все</span>
+        </label>
+
         <div class="first-row">
           <span>Продукты</span>
-          <span id="kcal">Калории</span>
+          <span class="sort-kcal">Калории</span>
         </div>
 
         <ul class="content__list">
-          <li class="content__item">
-            <label class="content__checkbox">
-              <input type="checkbox" class="content__input" />
-              <span class="content__text">Хлеб</span>
-            </label>
-            <span class="content__kcal">170 ккал</span>
-          </li>
+          
         </ul>
 
-        <span class="content__kcal_per-day"
-          >Ккал потребленные за день: 1920</span
-        >
+        <div class="content__footer">
+          <div class="daily-amount">
+            <span class="content__kcal_per-day"></span>
+            <span class="kcal-for-day kcal__set">Установить дневную норму</span>
+          </div>
+          <button class="button button-remove">Удалить выбранные</button>
+        </div>
       </div>
     </div>
 
-    <script src="./index.js"></script>
+    <script src="./js/index.js"></script>
   </body>
 </html>
