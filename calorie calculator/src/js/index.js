@@ -1,11 +1,11 @@
 let productArray = localStorage.getItem('products') ? JSON.parse(localStorage.getItem('products')) : [];
-let kcalLevel = 0;
+let kcalLevel = localStorage.getItem('kcalLevel') ? +localStorage.getItem('kcalLevel') : 0;
 const buttonAdd = document.querySelector('.button-add');
 const buttonRemove = document.querySelector('.button-remove');
 const checkboxForAll = document.querySelector('.check-all');
 const kcalPerDay = document.querySelector('.content__kcal_per-day');
 const searchInput = document.querySelector('#filter');
-const kcalSet  = document.querySelector('.kcal__set');
+const kcalSet = document.querySelector('.kcal-for-day');
 
 
 const productTemplate = (item) => {
@@ -39,6 +39,7 @@ const renderProducts = () => {
     })
     checkArray();
     countKcalPerDay();
+    saveLocalStorage('products', productArray);
 }
 
 const checkArray = () => {
@@ -47,8 +48,6 @@ const checkArray = () => {
     productArray.length === 0 ? content.classList.add('hide') : content.classList.remove('hide');
 }
 
-checkArray();
-
 //Добавление продукта
 buttonAdd.addEventListener('click', () => {
     const kcalInput = document.querySelector('#calorie');
@@ -56,14 +55,16 @@ buttonAdd.addEventListener('click', () => {
 
     kcalInput.value === '' ? kcalInput.classList.add('content__error') : kcalInput.classList.remove('content__error');
     nameInput.value === '' ? nameInput.classList.add('content__error') : nameInput.classList.remove('content__error');
-    
+
     if (kcalInput.value === '' || nameInput.value === '') return;
 
     const product = {
         name: nameInput.value,
         kcal: kcalInput.value,
-        isChecked: false
+        isChecked: false,
+        date: new Date().toISOString().slice(0, 10)
     }
+
     productArray.push(product);
 
     kcalInput.value = '';
@@ -77,7 +78,7 @@ buttonRemove.addEventListener('click', () => {
     productArray = productArray.filter(item => !item.isChecked);
 
     if (productArray.length === 0) return checkboxForAll.checked = false;
-    
+
 
     renderProducts();
 })
@@ -90,7 +91,7 @@ checkboxForAll.addEventListener('change', () => {
 const numberWithSpaces = (num) => {
     const string = num.toString();
     if (string.length < 4) {
-      return string
+        return string
     }
     return string.replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 };
@@ -98,8 +99,15 @@ const numberWithSpaces = (num) => {
 const countKcalPerDay = () => {
     kcalPerDay.innerHTML = '';
     let sum = 0;
-    productArray.forEach(item => sum += +item.kcal);
+    const today = new Date().toISOString().slice(0, 10);
+
+    productArray.forEach(item => item.date === today ? sum += +item.kcal : '');
+
+    kcalLevel <= sum && kcalLevel !== 0 ? kcalSet.classList.add('error') : '';
+
     kcalPerDay.innerHTML = `Ккал потребленные за день: ${numberWithSpaces(sum)}`;
+
+    renderChart()
 }
 
 const sortProductsByKcal = () => {
@@ -121,55 +129,97 @@ sortKcal.addEventListener('click', sortByKcal);
 const filterProductsByName = (name) => {
     const filteredProducts = productArray.filter(item => item.name.toLowerCase().includes(name.toLowerCase()));
     renderFilteredProducts(filteredProducts);
-  }
-  
-  const renderFilteredProducts = (filteredProducts) => {
+}
+
+const renderFilteredProducts = (filteredProducts) => {
     const ul = document.querySelector('.content__list');
     ul.innerHTML = '';
     filteredProducts.forEach((item) => {
-      ul.appendChild(productTemplate(item));
+        ul.appendChild(productTemplate(item));
     })
-  }
-  
-  searchInput.addEventListener('input', (event) => {
+}
+
+searchInput.addEventListener('input', (event) => {
     const searchTerm = event.target.value;
     filterProductsByName(searchTerm);
-  })
+})
 
-  const setCalories = () => {
+const setCalories = () => {
     kcalSet.classList.remove('kcal__set');
     kcalSet.innerHTML = 'Целевой показатель ккал: <input class="input-kcal content__input" value="" type="text" >';
     const input = kcalSet.querySelector('.input-kcal');
 
     input.focus();
 
+    const handleInput = () => {
+        kcalSet.classList.remove('error');
+        if (input.value !== '') {
+            input.value = numberWithSpaces(input.value);
+            input.setAttribute('readonly', '');
+            kcalLevel = +input.value;
+            countKcalPerDay();
+        } else {
+            kcalSet.classList.add('kcal__set');
+            kcalSet.innerHTML = 'Установить дневную норму';
+            kcalLevel = 0;
+        }
+        saveLocalStorage('kcalLevel', kcalLevel);
+    }
+
     input.addEventListener('input', (event) => {
         const value = event.target.value;
-        const filteredValue = value.replace(/\D/g, ''); 
+        const filteredValue = value.replace(/\D/g, '');
 
         if (value !== filteredValue) event.target.value = filteredValue;
     })
 
-    input.addEventListener('blur', () => {
-        if (input.value !== '') {
-            input.value = numberWithSpaces(input.value);
-            input.setAttribute('readonly', '');
-        } else {
-            console.log('error');
-            kcalSet.classList.add('kcal__set');
-            kcalSet.innnerHTML = `Установить дневную норму`;
-        }
-    })
-
+    input.addEventListener('blur', handleInput);
     input.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' && input.value !== '') {
-            input.value = numberWithSpaces(input.value);
-            input.setAttribute('readonly', '');
-        } else if (event.key === 'Enter') {
-            kcalSet.classList.add('kcal__set');
-            kcalSet.innnerHTML = `Установить дневную норму`;
+        if (event.key === 'Enter') {
+            handleInput();
         }
-    })
+    });
 }
 
-  kcalSet ? kcalSet.addEventListener('click', setCalories) : '';
+kcalSet.classList.contains('kcal__set') ? kcalSet.addEventListener('click', setCalories) : '';
+
+const renderChart = () => {
+    const chartContainer = document.querySelector('.chart');
+    chartContainer.innerHTML = '';
+
+    const uniqueDates = [...new Set(productArray.map(item => item.date))];
+
+    const allKcal = productArray.reduce((acc, item) => acc + +item.kcal, 0);
+
+    uniqueDates.forEach((date) => {
+        const filteredProducts = productArray.filter(item => item.date === date);
+        const sum = filteredProducts.reduce((acc, item) => acc + +item.kcal, 0);
+
+        const bar = document.createElement('div');
+        bar.classList.add('bar');
+
+        const barWidth = (sum / allKcal) * 100;
+        bar.style.width = `${barWidth}%`;
+
+        const label = document.createElement('div');
+        label.classList.add('chart-label');
+        label.textContent = `${date}: ${sum} ккал`;
+
+        bar.appendChild(label);
+        chartContainer.appendChild(bar);
+    })
+};
+
+const saveLocalStorage = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+const init = () => {
+    renderProducts();
+    if (kcalLevel !== 0) {
+        kcalSet.classList.remove('kcal__set');
+        kcalSet.innerHTML = `Целевой показатель ккал: <input class="input-kcal content__input" value="${kcalLevel}" type="text" >`;
+    }
+}
+
+init()
