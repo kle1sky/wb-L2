@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/styles/index.css" />
+    <title>Music Player</title>
+  </head>
+  <body>
+    <div class="player">
+      <div class="header">
+        <img src="./assets/img/logo.svg" alt="logo" class="header__img" />
+        <h1 class="header__title">Music Player</h1>
+      </div>
+
+      <!-- <audio
+        src="./assets/audio/ChildishGambino-Sober.mp3"
+        class="music"
+      ></audio> -->
+
+      <div class="content">
+        <div class="music-cover">
+          <img src="./assets/img/note.svg" alt="note" />
+        </div>
+
+        <div id="waveform"></div>
+
+        <!-- <div class="music-range">
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+            class="range contnent__timecode"
+          /> -->
+
+        <div class="duration">
+          <span class="timecode"></span>
+          <span class="whole-track"></span>
+        </div>
+
+        <div class="content__options">
+          <div class="repeat-random">
+            <svg
+              width="24"
+              class="repeat"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="Repeat">
+                <path
+                  class="fill"
+                  id="Path 2 Copy"
+                  d="M21.6432 6.04388C22.2699 5.65222 22.2699 4.73956 21.6432 4.34789L16.53 1.15214C15.864 0.735855 15 1.2147 15 2.00013V8.39164C15 9.17707 15.864 9.65592 16.53 9.23964L21.6432 6.04388Z"
+                  fill="#000"
+                />
+                <path
+                  class="fill"
+                  id="Path 2 Copy 2"
+                  d="M2.47014 19.0439C1.84347 18.6522 1.84347 17.7396 2.47014 17.3479L7.58334 14.1521C8.24939 13.7359 9.11334 14.2147 9.11334 15.0001V21.3916C9.11334 22.1771 8.24939 22.6559 7.58334 22.2396L2.47014 19.0439Z"
+                  fill="#000"
+                />
+                <path
+                  id="Path 4"
+                  class="stroke"
+                  d="M4 11V11C4 7.68629 6.68629 5 10 5V5H15"
+                  stroke="#000"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  id="Path 4 Copy"
+                  class="stroke"
+                  d="M19 12V12C19 15.3137 16.3137 18 13 18V18H8"
+                  stroke="#000"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+            </svg>
+
+            <svg
+              width="24"
+              height="24"
+              class="random"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="Shuffle">
+                <path
+                  class="stroke"
+                  id="Path"
+                  d="M16 18C14.4229 18 12.9465 17.3826 11.8511 16.3346"
+                  stroke="#000"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  id="Path_2"
+                  class="stroke"
+                  d="M7.15475 8.05196C5.78876 6.76008 3.95637 6 2 6"
+                  stroke="#000"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <g id="Group">
+                  <path
+                    id="Path 2 Copy 2"
+                    class="fill"
+                    d="M22.6432 19.0439C23.2699 18.6522 23.2699 17.7396 22.6432 17.3479L17.53 14.1521C16.864 13.7359 16 14.2147 16 15.0001V21.3916C16 22.1771 16.864 22.6559 17.53 22.2396L22.6432 19.0439Z"
+                    fill="#000"
+                  />
+                  <path
+                    class="stroke"
+                    id="Path 5 Copy"
+                    d="M16 6V6C13.5778 6 11.3932 7.45643 10.4615 9.69231L8.92308 13.3846C7.75856 16.1795 5.02776 18 2 18V18"
+                    stroke="#000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    class="fill"
+                    id="Path 2 Copy"
+                    d="M21.6432 7.04388C22.2699 6.65222 22.2699 5.73956 21.6432 5.34789L16.53 2.15214C15.864 1.73586 15 2.2147 15 3.00013V9.39164C15 10.1771 15.864 10.6559 16.53 10.2396L21.6432 7.04388Z"
+                    fill="#000"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <div class="play-track">
+            <svg
+              class="previous"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 6V18M5 18L5 6L15 12L5 18Z"
+                stroke="#000000"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg
+              class="play"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16.6582 9.28638C18.098 10.1862 18.8178 10.6361 19.0647 11.2122C19.2803 11.7152 19.2803 12.2847 19.0647 12.7878C18.8178 13.3638 18.098 13.8137 16.6582 14.7136L9.896 18.94C8.29805 19.9387 7.49907 20.4381 6.83973 20.385C6.26501 20.3388 5.73818 20.0469 5.3944 19.584C5 19.053 5 18.1108 5 16.2264V7.77357C5 5.88919 5 4.94701 5.3944 4.41598C5.73818 3.9531 6.26501 3.66111 6.83973 3.6149C7.49907 3.5619 8.29805 4.06126 9.896 5.05998L16.6582 9.28638Z"
+                stroke="#000000"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg
+              class="next"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 6V18M5 18L5 6L15 12L5 18Z"
+                stroke="#000000"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div class="volume">
+            <svg
+              class="volume-image"
+              width="38"
+              height="38"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16.0004 9.00009C16.6281 9.83575 17 10.8745 17 12.0001C17 13.1257 16.6281 14.1644 16.0004 15.0001M18 5.29177C19.8412 6.93973 21 9.33459 21 12.0001C21 14.6656 19.8412 17.0604 18 18.7084M4.6 9.00009H5.5012C6.05213 9.00009 6.32759 9.00009 6.58285 8.93141C6.80903 8.87056 7.02275 8.77046 7.21429 8.63566C7.43047 8.48353 7.60681 8.27191 7.95951 7.84868L10.5854 4.69758C11.0211 4.17476 11.2389 3.91335 11.4292 3.88614C11.594 3.86258 11.7597 3.92258 11.8712 4.04617C12 4.18889 12 4.52917 12 5.20973V18.7904C12 19.471 12 19.8113 11.8712 19.954C11.7597 20.0776 11.594 20.1376 11.4292 20.114C11.239 20.0868 11.0211 19.8254 10.5854 19.3026L7.95951 16.1515C7.60681 15.7283 7.43047 15.5166 7.21429 15.3645C7.02275 15.2297 6.80903 15.1296 6.58285 15.0688C6.32759 15.0001 6.05213 15.0001 5.5012 15.0001H4.6C4.03995 15.0001 3.75992 15.0001 3.54601 14.8911C3.35785 14.7952 3.20487 14.6422 3.10899 14.4541C3 14.2402 3 13.9601 3 13.4001V10.6001C3 10.04 3 9.76001 3.10899 9.54609C3.20487 9.35793 3.35785 9.20495 3.54601 9.10908C3.75992 9.00009 4.03995 9.00009 4.6 9.00009Z"
+                stroke="#000000"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            <input
+              type="range"
+              class="range volume-range"
+              min="0"
+              max="100"
+              value="50"
+            />
+          </div>
+
+          <svg
+            class="playlist"
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9 6.75C8.58579 6.75 8.25 7.08579 8.25 7.5C8.25 7.91421 8.58579 8.25 9 8.25V6.75ZM19 8.25C19.4142 8.25 19.75 7.91421 19.75 7.5C19.75 7.08579 19.4142 6.75 19 6.75V8.25ZM5 6.75C4.58579 6.75 4.25 7.08579 4.25 7.5C4.25 7.91421 4.58579 8.25 5 8.25V6.75ZM6 8.25C6.41421 8.25 6.75 7.91421 6.75 7.5C6.75 7.08579 6.41421 6.75 6 6.75V8.25ZM5 11.75C4.58579 11.75 4.25 12.0858 4.25 12.5C4.25 12.9142 4.58579 13.25 5 13.25V11.75ZM6 13.25C6.41421 13.25 6.75 12.9142 6.75 12.5C6.75 12.0858 6.41421 11.75 6 11.75V13.25ZM5 16.75C4.58579 16.75 4.25 17.0858 4.25 17.5C4.25 17.9142 4.58579 18.25 5 18.25V16.75ZM6 18.25C6.41421 18.25 6.75 17.9142 6.75 17.5C6.75 17.0858 6.41421 16.75 6 16.75V18.25ZM9 11.75C8.58579 11.75 8.25 12.0858 8.25 12.5C8.25 12.9142 8.58579 13.25 9 13.25V11.75ZM19 13.25C19.4142 13.25 19.75 12.9142 19.75 12.5C19.75 12.0858 19.4142 11.75 19 11.75V13.25ZM9 16.75C8.58579 16.75 8.25 17.0858 8.25 17.5C8.25 17.9142 8.58579 18.25 9 18.25V16.75ZM19 18.25C19.4142 18.25 19.75 17.9142 19.75 17.5C19.75 17.0858 19.4142 16.75 19 16.75V18.25ZM9 8.25H19V6.75H9V8.25ZM5 8.25H6V6.75H5V8.25ZM5 13.25H6V11.75H5V13.25ZM5 18.25H6V16.75H5V18.25ZM9 13.25H19V11.75H9V13.25ZM9 18.25H19V16.75H9V18.25Z"
+              fill="#000000"
+            />
+          </svg>
+
+          <div class="playlist-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../node_modules/wavesurfer.js/dist/wavesurfer.min.js"></script>
+    <script type="module" src="./js/index.js"></script>
+  </body>
+</html>
