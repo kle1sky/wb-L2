@@ -1,0 +1,29 @@
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.editBtn {
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.editBtn:hover {
+  text-decoration: underline;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+}
+
+.trash {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.trash:hover {
+  transform: rotate(-10deg);
+}

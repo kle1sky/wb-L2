@@ -1,0 +1,25 @@
+.formInput {
+        width: 550px;
+        font-family: Roboto;
+        outline: none;
+        font-size: 18px;
+        padding-left: 50px;
+        color: #4d4d4d;
+        height: 50px;
+        border-radius: 10px;
+        border: 1px;
+        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+        user-select: none;
+}
+
+.formInput::-webkit-input-placeholder {
+    font-size: 18px;
+    font-style: italic;
+    letter-spacing: 1px;
+    font-weight: 300;
+    color: rgba(118, 118, 118, 0.3);
+  }
+
+  .hide {
+    display: none;
+}
